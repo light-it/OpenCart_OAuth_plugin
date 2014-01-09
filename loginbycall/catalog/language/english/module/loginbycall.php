@@ -30,11 +30,14 @@ $_['button_logout'] = 'Logout';
 //Error
 $_['error_login'] = 'Invalid login or password';
 
-$_['sign_in_sign_up'] = 'Sign in / Sign up';
+$_['register'] = 'Register';
+$_['login'] = 'Login';
+$_['fast_authorization'] = 'Fast Authorization';
 
 $_['text_loginbycall_settings'] = 'LoginByCall Settings';
 
 $_['loginbycall_settings'] = 'Settings';
+
 
 
 ?>

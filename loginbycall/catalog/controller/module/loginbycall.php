@@ -22,7 +22,9 @@ class ControllerModuleLoginbycall extends Controller {
 		$this->data['text_history'] = $this->language->get('text_history');
 		$this->data['text_welcome'] = $this->language->get('text_welcome');
 		$this->data['text_password'] = $this->language->get('text_password');
-		$this->data['sign_in_sign_up'] = $this->language->get('sign_in_sign_up');
+		$this->data['login'] = $this->language->get('login');
+		$this->data['register'] = $this->language->get('register');
+		$this->data['fast_authorization'] = $this->language->get('fast_authorization');
 		$this->data['text_loginbycall_settings'] = $this->language->get('text_loginbycall_settings');
 		$this->data['loginbycall_settings'] = $this->url->link('account/loginbycallsettings', '', 'SSL');
 

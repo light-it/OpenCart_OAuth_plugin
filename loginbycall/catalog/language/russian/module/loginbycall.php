@@ -30,7 +30,9 @@ $_['button_logout'] = 'Выход';
 //Error
 $_['error_login'] = 'Неверный логин или пароль';
 
-$_['sign_in_sign_up'] = 'Войти / Зарегистрироваться';
+$_['register'] = 'Регистрация';
+$_['login'] = 'Вход';
+$_['fast_authorization'] = 'Быстрая авторизация';
 
 $_['text_loginbycall_settings'] = 'LoginByCall Настройки';
 
