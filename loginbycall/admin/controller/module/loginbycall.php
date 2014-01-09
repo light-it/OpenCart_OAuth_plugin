@@ -73,8 +73,13 @@ class ControllerModuleLoginbycall extends Controller {
 			$this->request->post['adress_callback'] = $this->data['base'] . 'loginbycallredirect';
 			$this->model_setting_setting->editSetting('loginbycall', $this->request->post);
 		}
+		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+			$this->data['base'] = str_replace('admin/', "", HTTPS_SERVER);
+		} else {
+			$this->data['base'] = str_replace('admin/', "", HTTP_SERVER);
+		}
 		$this->data['adress_callback'] = $this->language->get('adress_callback');
-		$this->data['adress_callback_value'] = $setting_loginbycall['adress_callback'];
+		$this->data['adress_callback_value'] = $this->data['base'] . 'loginbycallredirect';
 		$this->data['adress_callback_description'] = $this->language->get('adress_callback_description');
 
 		$this->data['id_application'] = $this->language->get('ID application');
