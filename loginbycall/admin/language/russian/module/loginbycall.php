@@ -14,7 +14,7 @@ $_['password_length_description'] = 'Введите длинну пароля д
 $_['sending_mail'] = 'Отправка письма';
 $_['sending_mail_description'] = 'Выберите чтобы отправить извещение новым пользователям';
 $_['resolution'] = 'Разрешение';
-$_['resolution_description'] = 'Выберите если хотите позволить пользователю управлять входящими данными и удалить аккаунт LoginByCall';
+$_['resolution_description'] = 'Выберите если хотите позволить пользователю удалить связь с аккаунтом LoginByCall';
 $_['settings'] = 'Настройки';
 $_['position'] = 'Позиция';
 $_['text_module'] = 'Модуль';
@@ -30,9 +30,4 @@ $_['text_content_top'] = 'Content top';
 $_['text_content_bottom'] = 'Content bottom';
 $_['text_column_left'] = 'Column left';
 $_['text_column_right'] = 'Column right';
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>

@@ -108,10 +108,10 @@ class ControllerModuleLoginbycall extends Controller {
 		$this->data['authorization_code_description'] = $this->language->get('authorization_code_description');
 
 		$this->data['password_length'] = $this->language->get('password_length');
-		if (isset($setting_loginbycall['password_length'])) {
+		if (isset($setting_loginbycall['password_length']) && $setting_loginbycall['password_length']!='') {
 			$this->data['password_length_value'] = $setting_loginbycall['password_length'];
 		} else {
-			$this->data['password_length_value'] = '';
+			$this->data['password_length_value'] = 12;
 		}
 		$this->data['password_length_description'] = $this->language->get('password_length_description');
 
