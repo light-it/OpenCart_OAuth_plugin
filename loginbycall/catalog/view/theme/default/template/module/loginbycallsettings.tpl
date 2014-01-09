@@ -41,6 +41,7 @@
 	<div class="box-content">
 		<form action="<?php echo $action;?>" method="post" id="loginbycall-user-edit-form" accept-charset="UTF-8">
 			<div>
+				<?php if (!$hidden_settings_form) { ?>
 				<input type="hidden" name="user_uid" value="1">
 				<div class="form-item form-type-textfield form-item-set-name">
 					<label for="edit-set-name"><?php echo $user_name; ?></label>
@@ -57,6 +58,13 @@
 					<div class="description"><?php echo $unbind_account_loginbycall; ?></div>
 				</div>
 				<?php } ?>
+				<?php }else{ ?>
+				<div class="form-item form-type-checkbox form-item-user-bind">
+					<input type="checkbox" id="edit-user-unbind" name="user_bind" value="1" class="form-checkbox">
+					<label class="option label" for="edit-user-bind"><?php echo $bind; ?></label>
+					<div class="description"><?php echo $bind_account_loginbycall; ?></div>
+				</div>
+				<?php }?>
 				<div class="form-item">
 					<input type="hidden" name="form_id" value="loginbycall_user_edit_form">
 					<input type = "submit" id = "edit-submit" name = "loginbycall-user-edit-form" value = "<?php echo $submit; ?>" class = "form-submit">

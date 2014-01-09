@@ -17,6 +17,8 @@ class ControllerAccountLoginbycallredirect extends Controller {
 				if (!$query->num_rows) {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $this->customer->getFirstName() . "' , mail ='" . $obj->email . "', target_token='" . $obj->target_token . "',status=1");
 				}
+				$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
+			} else {
 				$this->redirect($this->url->link('account/account', '', 'SSL'));
 			}
 		} else {
@@ -30,10 +32,12 @@ class ControllerAccountLoginbycallredirect extends Controller {
 					$mail = $query->rows[0]['email'];
 					$customer_info = $this->model_account_customer->getCustomerByEmail($mail);
 					$this->session->data['customer_id'] = $customer_info['customer_id'];
-					$this->redirect($this->url->link('account/account', '', 'SSL'));
+					$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 				} else {
 					$this->redirect($this->url->link('account/loginbycallbindform', '', 'SSL'));
 				}
+			} else {
+				$this->redirect($this->url->link('account/account', '', 'SSL'));
 			}
 		}
 	}

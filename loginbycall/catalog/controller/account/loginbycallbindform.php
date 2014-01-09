@@ -17,6 +17,10 @@ class ControllerAccountLoginbycallbindform extends Controller {
 				if ($this->validate_bind_account()) {
 					$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
 					$this->session->data['customer_id'] = $customer_info['customer_id'];
+					$query = $this->db->query("SELECT uid FROM " . DB_PREFIX . "loginbycall_status ls WHERE ls.uid = " . $customer_info['customer_id']);
+					if ($query->num_rows) {
+						$this->db->query("DELETE FROM " . DB_PREFIX . "loginbycall_status WHERE uid = '" . $customer_info['customer_id'] . "'");
+					}
 					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $obj->email . "', target_token='" . $obj->target_token . "',status=1");
 					$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 				}

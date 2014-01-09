@@ -31,4 +31,8 @@ $_['button_logout'] = 'Выход';
 $_['error_login'] = 'Неверный логин или пароль';
 
 $_['sign_in_sign_up'] = 'Войти / Зарегистрироваться';
+
+$_['text_loginbycall_settings'] = 'LoginByCall Настройки';
+
+$_['loginbycall_settings'] = 'Настройки';
 ?>

@@ -46,6 +46,12 @@
 			<li><a href="<?php echo $history; ?>"><?php echo $text_history; ?></a></li>
 		</ul>
 		</p>
+		<p>
+			<b><?php echo $text_loginbycall_settings; ?></b>
+		<ul>
+			<li><a href="<?php echo $loginbycall_settings; ?>"><?php echo $text_loginbycall_settings; ?></a></li>
+		</ul>
+		</p>
 		<div style="margin: 12px 0 12px 40px; text-align: left;"><a href="<?php echo $logout; ?>" class="button"><span><?php echo $button_logout; ?></span></a></div>
 		<? } ?>
 	</div>
