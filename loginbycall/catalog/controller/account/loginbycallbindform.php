@@ -12,7 +12,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 		$this->language->load('module/loginbycallbindform');
 		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 		$obj = $this->session->data['request_obj'];
-		if(!isset($obj)){
+		if (!isset($obj)) {
 			$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 		}
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
@@ -34,13 +34,13 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					$data['lastname'] = 'empty';
 					$data['email'] = $this->request->post['create_email'];
 					$data['telephone'] = '000-000';
-					//$data['fax'];
-					//$data['company'];
+					$data['fax'] = '';
+					$data['company'];
 					$data['customer_group_id'] = '1';
-					//$data['company_id'];
-					//$data['tax_id'];
+					$data['company_id'] = '';
+					$data['tax_id'] = '';
 					$data['address_1'] = 'empty';
-					//$data['address_2'];
+					$data['address_2'] = '';
 					$data['city'] = 'empty';
 					$data['postcode'] = '000';
 					$data['country_id'] = '222';
