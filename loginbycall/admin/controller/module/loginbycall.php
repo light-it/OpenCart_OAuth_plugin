@@ -5,6 +5,10 @@ class ControllerModuleLoginbycall extends Controller {
 
 	private $error = array();
 
+	private function install() {
+		
+	}
+
 	public function index() {
 		$this->load->language('module/loginbycall');
 		$this->load->model('setting/setting');
@@ -31,6 +35,20 @@ class ControllerModuleLoginbycall extends Controller {
 		);
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "logimbycall_user (
+			id4 int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+			uid int(11) DEFAULT NULL COMMENT 'UID drupal user',
+			login varchar(100) DEFAULT NULL COMMENT 'loginbycall user login',
+			mail varchar(100) DEFAULT NULL COMMENT 'loginbycall user email',
+			target_token varchar(255) DEFAULT NULL COMMENT 'loginbycall target_token',
+			status int(11) DEFAULT NULL COMMENT 'Bind status',
+			PRIMARY KEY (id4)
+			) ENGINE = InnoDB DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;");
+			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_status (
+			uid int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+			status int(11) DEFAULT NULL COMMENT 'UID drupal user',
+			PRIMARY KEY (uid)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 			if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 				$this->data['base'] = str_replace('admin/', "", HTTPS_SERVER);
 			} else {
@@ -55,7 +73,7 @@ class ControllerModuleLoginbycall extends Controller {
 
 		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 //		echo '<pre>';
-//		print_r($setting_loginbycall);
+//		print_r(    $setting_loginbycall);
 //		echo '</pre>';
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
@@ -108,7 +126,7 @@ class ControllerModuleLoginbycall extends Controller {
 		$this->data['authorization_code_description'] = $this->language->get('authorization_code_description');
 
 		$this->data['password_length'] = $this->language->get('password_length');
-		if (isset($setting_loginbycall['password_length']) && $setting_loginbycall['password_length']!='') {
+		if (isset($setting_loginbycall['password_length']) && $setting_loginbycall['password_length'] != '') {
 			$this->data['password_length_value'] = $setting_loginbycall['password_length'];
 		} else {
 			$this->data['password_length_value'] = 12;
@@ -189,7 +207,8 @@ class ControllerModuleLoginbycall extends Controller {
 	}
 
 	private function validate() {
-		if (!$this->error) {
+		if (!$this->error
+		) {
 			return true;
 		} else {
 			return false;

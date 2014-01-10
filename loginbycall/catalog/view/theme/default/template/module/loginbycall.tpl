@@ -36,6 +36,7 @@
 			<br />
 			<b><?php echo $entry_password; ?>:</b><br />
 			<input type="password" name="password" />
+			<br />
 			<a href="<?php echo $account_create; ?>"><?php echo $text_account_create; ?></a>
 			<br />
 			<a href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a><br />
