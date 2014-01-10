@@ -31,6 +31,7 @@ $_['text_content_bottom'] = 'Content bottom';
 $_['text_column_left'] = 'Column left';
 $_['text_column_right'] = 'Column right';
 $_['table_create'] = 'Таблицы созданы ';
+$_['table_label'] = 'Таблицы';
 $_['table_no_create'] = 'Таблицы не созданы ';
 $_['table_description'] = 'Отметьте, чтобы создать таблицы модуля, снимите отметку, чтобы удалить таблицы модуля.';
 

@@ -86,6 +86,7 @@ class ControllerModuleLoginbycall extends Controller {
 			$this->data['table'] = $this->language->get('table_no_create');
 		}
 		$this->data['table_description'] = $this->language->get('table_description');
+		$this->data['table_label'] = $this->language->get('table_label');
 //		$table_list = $this->db->query("SHOW TABLES FROM `" . DB_PREFIX . "loginbycall_user`");
 //		echo '<pre>';
 //		print_r($table_list);

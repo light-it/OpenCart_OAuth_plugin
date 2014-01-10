@@ -56,12 +56,12 @@
 							<td><input type="checkbox" id="edit-resolution" name="resolution" <?php echo (($resolution_value == 1) ? 'checked="checked"' : ''); ?> value="1" class="form-checkbox"></td>
 							<td><?php echo $resolution_description; ?></td>
 						</tr>
+						<tr>
+							<td><?php echo $table_label; ?></td>
+							<td><input type="checkbox" id="create-table" name="create-table" checked="true" /><span><?php echo $table; ?></span></td>
+							<td><?php echo $table_description; ?></td>
+						</tr>
 					</table>
-					<input type="checkbox" id="create-table" name="create-table" checked="true" />
-					<span><?php echo $table; ?></span>
-					<p style="font-size: 10px;">
-						<?php echo $table_description; ?>
-					</p>
 				</div>
 				<table id="position" class="list" style="width: 100%; display: none;" >
 					<thead>
