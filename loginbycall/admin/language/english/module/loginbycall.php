@@ -30,6 +30,9 @@ $_['text_content_top'] = 'Content top';
 $_['text_content_bottom'] = 'Content bottom';
 $_['text_column_left'] = 'Column left';
 $_['text_column_right'] = 'Column right';
+$_['table_create'] = 'Tables created';
+$_['table_no_create'] = 'Table is not created';
+$_['table_description'] = 'Check to create module table. Uncheck to remove module\'s table.';
 
 /*
  * To change this template, choose Tools | Templates

@@ -5,10 +5,6 @@ class ControllerModuleLoginbycall extends Controller {
 
 	private $error = array();
 
-	private function install() {
-		
-	}
-
 	public function index() {
 		$this->load->language('module/loginbycall');
 		$this->load->model('setting/setting');
@@ -33,22 +29,8 @@ class ControllerModuleLoginbycall extends Controller {
 			'href' => $this->url->link('module/loginbycall', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
-
+		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_user (
-			id4 int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-			uid int(11) DEFAULT NULL COMMENT 'UID drupal user',
-			login varchar(100) DEFAULT NULL COMMENT 'loginbycall user login',
-			mail varchar(100) DEFAULT NULL COMMENT 'loginbycall user email',
-			target_token varchar(255) DEFAULT NULL COMMENT 'loginbycall target_token',
-			status int(11) DEFAULT NULL COMMENT 'Bind status',
-			PRIMARY KEY (id4)
-			) ENGINE = InnoDB DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;");
-			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_status (
-			uid int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-			status int(11) DEFAULT NULL COMMENT 'UID drupal user',
-			PRIMARY KEY (uid)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 			if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 				$this->data['base'] = str_replace('admin/', "", HTTPS_SERVER);
 			} else {
@@ -67,11 +49,47 @@ class ControllerModuleLoginbycall extends Controller {
 			} else {
 				$this->request->post['resolution'] = 0;
 			}
+			if (isset($this->request->post['create-table'])) {
+				$this->request->post['exists_table'] = 1;
+				$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_user (
+			id4 int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+			uid int(11) DEFAULT NULL COMMENT 'UID drupal user',
+			login varchar(100) DEFAULT NULL COMMENT 'loginbycall user login',
+			mail varchar(100) DEFAULT NULL COMMENT 'loginbycall user email',
+			target_token varchar(255) DEFAULT NULL COMMENT 'loginbycall target_token',
+			status int(11) DEFAULT NULL COMMENT 'Bind status',
+			PRIMARY KEY (id4)
+			) ENGINE = InnoDB DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;");
+				$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_status (
+			uid int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+			status int(11) DEFAULT NULL COMMENT 'UID drupal user',
+			PRIMARY KEY (uid)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+			} else {
+				$this->request->post['exists_table'] = 0;
+				$exists = false;
+				if (isset($setting_loginbycall['exists_table']) && $setting_loginbycall['exists_table'] != 0) {
+					$exists = true;
+				}
+				if ($exists) {
+					$this->db->query("DROP TABLE " . DB_PREFIX . "loginbycall_user");
+					$this->db->query("DROP TABLE " . DB_PREFIX . "loginbycall_status");
+				}
+			}
 			$this->model_setting_setting->editSetting('loginbycall', $this->request->post);
 			$this->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 
-		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
+		if (isset($setting_loginbycall['exists_table']) && $setting_loginbycall['exists_table'] != 0) {
+			$this->data['table'] = $this->language->get('table_create');
+		} else {
+			$this->data['table'] = $this->language->get('table_no_create');
+		}
+		$this->data['table_description'] = $this->language->get('table_description');
+//		$table_list = $this->db->query("SHOW TABLES FROM `" . DB_PREFIX . "loginbycall_user`");
+//		echo '<pre>';
+//		print_r($table_list);
+//		echo '</pre>';
 //		echo '<pre>';
 //		print_r(    $setting_loginbycall);
 //		echo '</pre>';

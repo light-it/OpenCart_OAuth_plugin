@@ -19,45 +19,50 @@
 					<a href="#" id="tab-settings" style="display: block;" class="selected" onclick="$('#position').hide();$('#tab-position').removeClass('selected'); $(this).addClass('selected'); $('#settings').show(); return false;"><?php echo $settings; ?></a>
 					<a href="#" id="tab-position" style="display: block;" onclick="$('#settings').hide(); $('#position').show();$('#tab-settings').removeClass('selected');$(this).addClass('selected'); return false;"><?php echo $position; ?></a>
 				</div>
-
-				<table id="settings" class="list" style="width: 100%;">
-					<tr>
-						<td><?php echo $adress_callback; ?></td>
-						<td><input name="adress_callback" type="text" style="width: 300px; background: gainsboro;"  disabled="disabled"  value="<?php echo $adress_callback_value; ?>"/></td>
-						<td><?php echo $adress_callback_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $id_application; ?></td>
-						<td><input name="id_application" type="text" style="width: 300px;" value="<?php echo $id_application_value; ?>"/></td>
-						<td><?php echo $id_application_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $secret_key; ?></td>
-						<td><input name="secret_key" type="text" style="width: 300px;" value="<?php echo $secret_key_value; ?>"/></td>
-						<td><?php echo $secret_key_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $authorization_code; ?></td>
-						<td><input name="authorization_code" type="text" disabled="disabled"  style="width: 300px; background: gainsboro;"  value="<?php echo $authorization_code_value; ?>"/></td>
-						<td><?php echo $authorization_code_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $password_length; ?></td>
-						<td><input name="password_length" type="text" style="width: 300px;" value="<?php echo $password_length_value; ?>"/></td>
-						<td><?php echo $password_length_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $sending_mail; ?></td>
-						<td><input type="checkbox" id="edit-mail" name="sending_mail" value="1" <?php echo (($sending_mail_value == 1) ? 'checked="checked"' : ''); ?> class="form-checkbox"></td>
-						<td><?php echo $sending_mail_description; ?></td>
-					</tr>
-					<tr>
-						<td><?php echo $resolution; ?></td>
-						<td><input type="checkbox" id="edit-resolution" name="resolution" <?php echo (($resolution_value == 1) ? 'checked="checked"' : ''); ?> value="1" class="form-checkbox"></td>
-						<td><?php echo $resolution_description; ?></td>
-					</tr>
-
-				</table>
+				<div id="settings" >
+					<table id="settings" class="list" style="width: 100%;">
+						<tr>
+							<td><?php echo $adress_callback; ?></td>
+							<td><input name="adress_callback" type="text" style="width: 300px; background: gainsboro;"  disabled="disabled"  value="<?php echo $adress_callback_value; ?>"/></td>
+							<td><?php echo $adress_callback_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $id_application; ?></td>
+							<td><input name="id_application" type="text" style="width: 300px;" value="<?php echo $id_application_value; ?>"/></td>
+							<td><?php echo $id_application_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $secret_key; ?></td>
+							<td><input name="secret_key" type="text" style="width: 300px;" value="<?php echo $secret_key_value; ?>"/></td>
+							<td><?php echo $secret_key_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $authorization_code; ?></td>
+							<td><input name="authorization_code" type="text" disabled="disabled"  style="width: 300px; background: gainsboro;"  value="<?php echo $authorization_code_value; ?>"/></td>
+							<td><?php echo $authorization_code_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $password_length; ?></td>
+							<td><input name="password_length" type="text" style="width: 300px;" value="<?php echo $password_length_value; ?>"/></td>
+							<td><?php echo $password_length_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $sending_mail; ?></td>
+							<td><input type="checkbox" id="edit-mail" name="sending_mail" value="1" <?php echo (($sending_mail_value == 1) ? 'checked="checked"' : ''); ?> class="form-checkbox"></td>
+							<td><?php echo $sending_mail_description; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo $resolution; ?></td>
+							<td><input type="checkbox" id="edit-resolution" name="resolution" <?php echo (($resolution_value == 1) ? 'checked="checked"' : ''); ?> value="1" class="form-checkbox"></td>
+							<td><?php echo $resolution_description; ?></td>
+						</tr>
+					</table>
+					<input type="checkbox" id="create-table" name="create-table" checked="true" />
+					<span><?php echo $table; ?></span>
+					<p style="font-size: 10px;">
+						<?php echo $table_description; ?>
+					</p>
+				</div>
 				<table id="position" class="list" style="width: 100%; display: none;" >
 					<thead>
 						<tr>
