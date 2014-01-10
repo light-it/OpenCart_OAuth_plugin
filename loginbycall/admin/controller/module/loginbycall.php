@@ -85,6 +85,7 @@ class ControllerModuleLoginbycall extends Controller {
 		} else {
 			$this->data['table'] = $this->language->get('table_no_create');
 		}
+		$this->data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 		$this->data['table_description'] = $this->language->get('table_description');
 		$this->data['table_label'] = $this->language->get('table_label');
 //		$table_list = $this->db->query("SHOW TABLES FROM `" . DB_PREFIX . "loginbycall_user`");
