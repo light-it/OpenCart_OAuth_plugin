@@ -12,6 +12,9 @@ class ControllerAccountLoginbycallbindform extends Controller {
 		$this->language->load('module/loginbycallbindform');
 		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 		$obj = $this->session->data['request_obj'];
+		if(!isset($obj)){
+			$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
+		}
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			if ($this->request->post['create'] == '1') {
 				if ($this->validate_bind_account()) {
