@@ -15,12 +15,12 @@
 		</div>
 		<div class="content">
 			<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form">
-				<div class="vtabs" >
-					<a href="#" onclick="$('#position').hide(); $('#settings').show(); return false;"><?php echo $settings; ?></a>
-					<a href="#" onclick="$('#settings').hide(); $('#position').show(); return false;"><?php echo $position; ?></a>
+				<div class="htabs" >
+					<a href="#" id="tab-settings" style="display: block;" class="selected" onclick="$('#position').hide();$('#tab-position').removeClass('selected'); $(this).addClass('selected'); $('#settings').show(); return false;"><?php echo $settings; ?></a>
+					<a href="#" id="tab-position" style="display: block;" onclick="$('#settings').hide(); $('#position').show();$('#tab-settings').removeClass('selected');$(this).addClass('selected'); return false;"><?php echo $position; ?></a>
 				</div>
 
-				<table id="settings" class="list" style="width: 89%;">
+				<table id="settings" class="list" style="width: 100%;">
 					<tr>
 						<td><?php echo $adress_callback; ?></td>
 						<td><input name="adress_callback" type="text" style="width: 300px; background: gainsboro;"  disabled="disabled"  value="<?php echo $adress_callback_value; ?>"/></td>
@@ -58,7 +58,7 @@
 					</tr>
 
 				</table>
-				<table id="position" class="list" style="width: 89%; display: none;" >
+				<table id="position" class="list" style="width: 100%; display: none;" >
 					<thead>
 						<tr>
 							<td class="left"><?php echo $entry_layout; ?></td>

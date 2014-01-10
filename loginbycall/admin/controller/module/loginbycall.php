@@ -35,7 +35,7 @@ class ControllerModuleLoginbycall extends Controller {
 		);
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "logimbycall_user (
+			$this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "loginbycall_user (
 			id4 int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
 			uid int(11) DEFAULT NULL COMMENT 'UID drupal user',
 			login varchar(100) DEFAULT NULL COMMENT 'loginbycall user login',
