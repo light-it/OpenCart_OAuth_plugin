@@ -58,7 +58,15 @@
 						</tr>
 						<tr>
 							<td><?php echo $table_label; ?></td>
-							<td><input type="checkbox" id="create-table" name="create-table" checked="true" /><span><?php echo $table; ?></span></td>
+							<td><input type="checkbox" id="create-table" name="create-table" checked="true" /><span style="
+																													display: block;
+																													position: relative;
+																													margin-top: -16px;
+																													font-size: 10px;
+																													color: gray;
+																													margin-left: 20px;
+																													margin-bottom: 4px;
+																													"><?php echo $table; ?></span></td>
 							<td><?php echo $table_description; ?></td>
 						</tr>
 					</table>
