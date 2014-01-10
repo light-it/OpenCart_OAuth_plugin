@@ -35,7 +35,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					$data['email'] = $this->request->post['create_email'];
 					$data['telephone'] = '000-000';
 					$data['fax'] = '';
-					$data['company'];
+					$data['company'] = '';
 					$data['customer_group_id'] = '1';
 					$data['company_id'] = '';
 					$data['tax_id'] = '';
