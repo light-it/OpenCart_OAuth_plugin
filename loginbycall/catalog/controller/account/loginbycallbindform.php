@@ -49,7 +49,37 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					$data['confirm'] = $pass;
 					$data['newsletter'] = '1';
 					$data['agree'] = 1;
+
+					$text = '';
+					$text .= $this->language->get('hello') . $this->request->post['create_login'] . '</br>';
+					$text .= $this->language->get('thank') . $_SERVER['SERVER_NAME'] . '</br>';
+					$text .= $this->language->get('register_data') . '</br>';
+					$text .= $this->language->get('register_email') . $this->request->post['create_email'] . '</br>';
+					$text .= $this->language->get('register_pass') . $pass . '</br>';
 					$this->model_account_customer->addCustomer($data);
+					$message = '<html dir="ltr" lang="en">' . "\n";
+					$message .= '  <head>' . "\n";
+					$message .= '    <title> Create account on site ' . $_SERVER['SERVER_NAME'] . '</title>' . "\n";
+					$message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
+					$message .= '  </head>' . "\n";
+					$message .= '  <body>' . html_entity_decode('Create account', ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
+					$message .= '</html>' . "\n";
+
+					$mail = new Mail();
+					$mail->protocol = $this->config->get('config_mail_protocol');
+					$mail->parameter = $this->config->get('config_mail_parameter');
+					$mail->hostname = $this->config->get('config_smtp_host');
+					$mail->username = $this->config->get('config_smtp_username');
+					$mail->password = $this->config->get('config_smtp_password');
+					$mail->port = $this->config->get('config_smtp_port');
+					$mail->timeout = $this->config->get('config_smtp_timeout');
+					$mail->setTo($this->request->post['create_email']);
+					$mail->setFrom($this->config->get('config_email'));
+					$mail->setSender($_SERVER['SERVER_NAME']);
+					$mail->setSubject(html_entity_decode('Create account', ENT_QUOTES, 'UTF-8'));
+					$mail->setHtml($message);
+					$mail->send();
+
 					$this->customer->login($data['email'], $data['password']);
 					$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['create_email']);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $this->request->post['create_email'] . "', target_token='" . $obj->target_token . "',status=1");

@@ -16,4 +16,9 @@ $_['error_approved'] = 'Warning: Your account requires approval before you can l
 $_['error_email'] = 'E-Mail Address does not appear to be valid!';
 $_['error_exists'] = 'Warning: E-Mail Address is already registered!';
 $_['error_firstname'] = 'First Name must be between 1 and 32 characters!';
+$_['hello'] = 'Hello, ';
+$_['thank'] = 'Thank you for registering on';
+$_['register_data'] = 'Your username and password:';
+$_['register_email'] = 'Email: ';
+$_['register_pass'] = 'Password:';
 ?>
