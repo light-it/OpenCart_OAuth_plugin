@@ -3,8 +3,8 @@
 $_['build_account'] = 'Создать аккаунт';
 $_['create_new_account'] = 'Создать новый пользовательский аккаунт';
 $_['bind_account'] = 'Привязать существующий аккаунт';
-$_['enter_new_login'] = 'Введите новый логин';
-$_['enter_new_login_description'] = 'Введите имя пользователя';
+$_['enter_new_first_name'] = 'Имя';
+$_['enter_new_first_name_description'] = 'Введите имя пользователя';
 $_['enter_email'] = 'Введите email';
 $_['enter_email_description'] = 'Введите ваш email';
 $_['enter_login'] = 'Введите логин';

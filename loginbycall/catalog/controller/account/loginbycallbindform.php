@@ -79,7 +79,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					$mail->setSubject(html_entity_decode('Create account', ENT_QUOTES, 'UTF-8'));
 					$mail->setHtml($message);
 					$mail->send();
-
+					unset($this->session->data['request_obj']);
 					$this->customer->login($data['email'], $data['password']);
 					$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['create_email']);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $this->request->post['create_email'] . "', target_token='" . $obj->target_token . "',status=1");
@@ -106,12 +106,12 @@ class ControllerAccountLoginbycallbindform extends Controller {
 		} else {
 			$this->template = 'default/template/module/loginbycallbindform.tpl';
 		}
-
+		$this->data['create_new_account_mail'] = $obj->email;
 		$this->data['build_account'] = $this->language->get('build_account');
 		$this->data['create_new_account'] = $this->language->get('create_new_account');
 		$this->data['bind_account'] = $this->language->get('bind_account');
-		$this->data['enter_new_login'] = $this->language->get('enter_new_login');
-		$this->data['enter_new_login_description'] = $this->language->get('enter_new_login_description');
+		$this->data['enter_new_first_name'] = $this->language->get('enter_new_first_name');
+		$this->data['enter_new_first_name_description'] = $this->language->get('enter_new_first_name_description');
 		$this->data['enter_email'] = $this->language->get('enter_email');
 		$this->data['enter_email_description'] = $this->language->get('enter_email_description');
 		$this->data['password'] = $this->language->get('password');

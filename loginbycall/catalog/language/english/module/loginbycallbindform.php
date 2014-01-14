@@ -3,8 +3,8 @@
 $_['build_account'] = 'Build account';
 $_['create_new_account'] = 'Create new user account';
 $_['bind_account'] = 'Bind have account';
-$_['enter_new_login'] = 'Enter new login';
-$_['enter_new_login_description'] = 'Enter the your user name';
+$_['enter_new_first_name'] = 'Enter First Name';
+$_['enter_new_first_name_description'] = 'Enter the your first name';
 $_['enter_email'] = 'Enter email';
 $_['enter_email_description'] = 'Enter the your email';
 $_['enter_login'] = 'Enter login';
