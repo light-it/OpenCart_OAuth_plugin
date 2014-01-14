@@ -13,6 +13,17 @@
 		text-decoration: none;
 	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+	$('#password').bind('keypress', function(e) {
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if(code==13){
+	$('#login_module').submit();
+}
+});
+});
+	
+</script>
 <div class="box">
 	<div class="box-heading"><?php echo $fast_authorization; ?></div>
 	<div id="loginbycall_fast" class="box-content">
@@ -35,7 +46,7 @@
 			<br />
 			<br />
 			<b><?php echo $entry_password; ?>:</b><br />
-			<input type="password" name="password" />
+			<input type="password" name="password" id="password" onkeypress=" alert(e.keyCode);" />
 			<br />
 			<a href="<?php echo $account_create; ?>"><?php echo $text_account_create; ?></a>
 			<br />
