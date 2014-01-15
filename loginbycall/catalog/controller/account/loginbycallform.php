@@ -12,7 +12,7 @@ class ControllerAccountLoginbycallform extends Controller {
 		if ($this->customer->getId()) {
 			$query = $this->db->query("SELECT uid FROM " . DB_PREFIX . "loginbycall_status ls WHERE ls.uid = " . $this->customer->getId());
 			if ($query->num_rows) {
-				$this->redirect($this->url->link('account/account', '', 'SSL'));
+				$this->redirect($this->url->link('account/account', '', 'SSL')); 
 			}
 		}
 		if ($this->customer->isLogged()) {
@@ -62,7 +62,7 @@ class ControllerAccountLoginbycallform extends Controller {
 		if ($this->customer->isLogged()) {
 			$this->load->model('account/customer');
 			$customer_info = $this->model_account_customer->getCustomer((int) $this->customer->getId());
-			$this->data['yes_response'] = $this->model_tool_loginbycallfunction->loginbycall_create_link($setting_loginbycall['id_application'], $setting_loginbycall['adress_callback'], $customer_info['firstname']);
+			$this->data['yes_response'] = $this->model_tool_loginbycallfunction->loginbycall_create_link($setting_loginbycall['id_application'], $setting_loginbycall['adress_callback'], $customer_info['email']);
 		}
 		$this->children = array(
 			'common/column_left',

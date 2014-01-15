@@ -27,7 +27,7 @@ class ControllerAccountLoginbycallsettings extends Controller {
 				$this->load->model('tool/loginbycallfunction');
 				//die('123');
 				$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
-				$link = $this->model_tool_loginbycallfunction->loginbycall_create_link($setting_loginbycall['id_application'], $setting_loginbycall['adress_callback'], $customer_info['firstname']);
+				$link = $this->model_tool_loginbycallfunction->loginbycall_create_link($setting_loginbycall['id_application'], $setting_loginbycall['adress_callback'], $customer_info['email']);
 				$this->redirect($link);
 				//$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $customer_info['email'] . "', target_token='" . $obj->target_token . "',status=1");
 			}
