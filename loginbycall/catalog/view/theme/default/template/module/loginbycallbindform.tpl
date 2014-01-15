@@ -151,7 +151,7 @@
 		</div>
 		<div class="form-item form-type-textfield form-item-create-email" style="display: block;">
 			<label for="edit-create-email"><?php echo $enter_email; ?></label>
-			<input type="text" id="edit-create-email" name="create_email" style="width: 300px; background: gainsboro;"  disabled="disabled"  value="<?php echo (isset($create_new_account_mail)? $create_new_account_mail : ''); ?>" size="60" maxlength="128" class="form-text">
+			<input type="text" id="edit-create-email" name="create_email" style="width: 300px; background: gainsboro;" value="<?php echo (isset($create_new_account_mail)? $create_new_account_mail : ''); ?>" size="60" maxlength="128" class="form-text">
 			<div class="description"><?php echo $enter_email_description; ?></div>
 		</div>
 		<div class = "form-item form-type-textfield form-item-login" style = "display: none;">
