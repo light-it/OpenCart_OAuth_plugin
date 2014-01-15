@@ -6,6 +6,9 @@ class ControllerAccountLoginbycallsettings extends Controller {
 
 	public function index() {
 		$this->language->load('module/loginbycallsettings');
+		$this->load->model('tool/loginbycallfunction');
+		$this->load->model('setting/setting');
+		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 		$this->data['error_warning'] = FALSE;
 		$this->data['hidden_settings_form'] = FALSE;
 		if ($this->customer->isLogged()) {
@@ -29,7 +32,6 @@ class ControllerAccountLoginbycallsettings extends Controller {
 				$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
 				$link = $this->model_tool_loginbycallfunction->loginbycall_create_link($setting_loginbycall['id_application'], $setting_loginbycall['adress_callback'], $customer_info['email']);
 				$this->redirect($link);
-				//$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $customer_info['email'] . "', target_token='" . $obj->target_token . "',status=1");
 			}
 
 			//$this->load->model('tool/loginbycallfunction');
@@ -38,9 +40,14 @@ class ControllerAccountLoginbycallsettings extends Controller {
 			}
 
 			$this->data['user_name_value'] = $customer_info['firstname'];
-			$query = $this->db->query("SELECT mail FROM " . DB_PREFIX . "loginbycall_user lu WHERE lu.uid = '" . $this->customer->getId() . "'");
+			$query = $this->db->query("SELECT mail,refresh_token,target_token FROM " . DB_PREFIX . "loginbycall_user lu WHERE lu.uid = '" . $this->customer->getId() . "'");
 			if ($query->num_rows) {
+//				echo '<pre>';
+//				print_r($query);
+//				echo '</pre>';
+//				die('');
 				if (($this->request->server['REQUEST_METHOD'] == 'POST') && isset($this->request->post['user_unbind'])) {
+					$this->model_tool_loginbycallfunction->loginbycall_oauth_render($setting_loginbycall['adress_callback'], $setting_loginbycall['id_application'], $setting_loginbycall['secret_key'], $setting_loginbycall['authorization_code'], null, $query->rows[0]['refresh_token'], $query->rows[0]['target_token']);
 					$this->db->query("DELETE FROM " . DB_PREFIX . "loginbycall_user WHERE uid = '" . $this->customer->getId() . "'");
 				}
 				$this->data['user_mail_value'] = $query->rows[0]['mail'];

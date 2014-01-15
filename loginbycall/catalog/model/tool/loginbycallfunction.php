@@ -7,36 +7,41 @@ class ModelToolLoginbycallfunction extends Model {
 		return $a;
 	}
 
-	public function loginbycall_oauth_render($redirect_uri, $client_id, $client_secret, $grant_type, $code, $target_token = NULL) {
-		if (!$code) {
-			$code = NULL;
-		}
-		/* Формируем POST запрос к серверу на получение acess_token */
-		$context_access = stream_context_create(array(
-			'http' => array('method' => 'POST',
-				'header' => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL,
-				'content' => "code=$code&redirect_uri=$redirect_uri&client_id=$client_id&client_secret=$client_secret&grant_type=$grant_type"
-				)));
-//		echo '20<pre>';
-//		print_r($context_access);
-//		echo '</pre>';
-		/* POST получение acess_token */
-		$answer = json_decode(@file_get_contents("https://loginbycall.com/oauth/token", false, $context_access));
-//		echo '25<pre>';
-//		print_r($answer);
-//		echo '</pre>';
-		/* Обрабатываем ошибку получения access_token */
-		if (isset($answer->error))
-			return (object) array('error' => true, 'error_description' => $answer->error_description);
+	public function loginbycall_oauth_render($redirect_uri, $client_id, $client_secret, $grant_type, $code, $destroy = NULL, $target_token = NULL) {
+		if ($code) {
 
-		/* Отвязка аккаунта */
-		if ($target_token) {
-			$context = stream_context_create(array(
+			/* Формируем POST запрос к серверу на получение acess_token */
+			$context_access = stream_context_create(array(
 				'http' => array('method' => 'POST',
 					'header' => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL,
-					'content' => "access_token=$answer->access_token&target_token=$target_token&application_id=$client_id"
+					'content' => "code=$code&redirect_uri=$redirect_uri&client_id=$client_id&client_secret=$client_secret&grant_type=$grant_type"
 					)));
-			$answer = json_decode(@file_get_contents("https://loginbycall.com/api/oauth/v2/userinfo/destroy", false, $context));
+			/* POST получение acess_token */
+			$answer = json_decode(@file_get_contents("https://loginbycall.com/oauth/token", false, $context_access));
+			$refresh_token = $answer->refresh_token;
+			/* Обрабатываем ошибку получения access_token */
+			if (isset($answer->error))
+				return (object) array('error' => true, 'error_description' => $answer->error_description);
+		}
+		/* Отвязка аккаунта */
+		if ($destroy) {
+			$context_access = stream_context_create(array(
+				'http' => array('method' => 'POST',
+					'header' => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL,
+					'content' => "redirect_uri=$redirect_uri&client_id=$client_id&client_secret=$client_secret&grant_type=refresh_token&refresh_token=$destroy"
+					)));
+			$answer = json_decode(@file_get_contents("https://loginbycall.com/oauth/token", false, $context_access));
+			$context_access = stream_context_create(array(
+				'http' => array('method' => 'POST',
+					'header' => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL,
+					'content' => "access_token=$answer->access_token&target_token=$target_token"
+					)));
+			$answer = json_decode(@file_get_contents("https://loginbycall.com/api/oauth/v2/userinfo/destroy", false, $context_access));
+//			echo '<pre>';
+//			
+//			print_r($context);
+//			echo '</pre>';
+//			$answer = json_decode(@file_get_contents("https://loginbycall.com/api/oauth/v2/userinfo/destroy", false, $context));
 
 			/* Обрабатываем ошибку отвязки пользователя */
 			if (isset($answer->error))
@@ -53,12 +58,16 @@ class ModelToolLoginbycallfunction extends Model {
 
 			/* Возвращаем успешный результат */
 			if ($answer) {
-				return (object) array('error' => false, 'login' => $answer->login, 'email' => $answer->email, 'target_token' => $answer->target_token, 'destroy' => false);
+				return (object) array('error' => false, 'login' => $answer->login, 'email' => $answer->email, 'target_token' => $answer->target_token, 'refresh_token' => $refresh_token, 'destroy' => false);
 			} else {
 				return false;
 			}
 		}
 		return (object) array('error' => true, 'error_description' => 'unknown error');
+	}
+
+	public function destroy_build() {
+		
 	}
 
 	/* Функция получения значения единственного поля */

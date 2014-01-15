@@ -24,7 +24,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					if ($query->num_rows) {
 						$this->db->query("DELETE FROM " . DB_PREFIX . "loginbycall_status WHERE uid = '" . $customer_info['customer_id'] . "'");
 					}
-					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $obj->email . "', target_token='" . $obj->target_token . "',status=1");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $obj->email . "', target_token='" . $obj->target_token . "', refresh_token='" . $obj->refresh_token . "',status=1");
 					$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 				}
 			} else {
@@ -82,7 +82,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 					unset($this->session->data['request_obj']);
 					$this->customer->login($data['email'], $data['password']);
 					$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['create_email']);
-					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $this->request->post['create_email'] . "', target_token='" . $obj->target_token . "',status=1");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $customer_info['firstname'] . "' , mail ='" . $this->request->post['create_email'] . "', target_token='" . $obj->target_token . "', refresh_token='" . $obj->refresh_token . "',status=1");
 					$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 				}
 			}
@@ -114,7 +114,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 			$this->request->post['email'] = $this->session->data['existing_account']['email'];
 		}
 		if ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->session->data['existing_account']) && $this->validate_bind_account()) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->session->data['existing_account']['customer_id'] . ", login = '" . $this->session->data['existing_account']['first_name'] . "' , mail ='" . $this->session->data['existing_account']['email'] . "', target_token='" . $this->session->data['existing_account']['target_token'] . "',status=1");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->session->data['existing_account']['customer_id'] . ", login = '" . $this->session->data['existing_account']['first_name'] . "' , mail ='" . $this->session->data['existing_account']['email'] . "', target_token='" . $this->session->data['existing_account']['target_token'] . "', refresh_token='" . $this->session->data['existing_account']['refresh_token'] . "',status=1");
 			$this->customer->login($this->session->data['existing_account']['email'], '', true);
 			unset($this->session->data['existing_account']);
 			$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));

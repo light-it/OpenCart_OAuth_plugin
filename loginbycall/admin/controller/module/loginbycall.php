@@ -57,6 +57,7 @@ class ControllerModuleLoginbycall extends Controller {
 			login varchar(100) DEFAULT NULL COMMENT 'loginbycall user login',
 			mail varchar(100) DEFAULT NULL COMMENT 'loginbycall user email',
 			target_token varchar(255) DEFAULT NULL COMMENT 'loginbycall target_token',
+			refresh_token varchar(255) DEFAULT NULL COMMENT 'loginbycall refresh_token',
 			status int(11) DEFAULT NULL COMMENT 'Bind status',
 			PRIMARY KEY (id4)
 			) ENGINE = InnoDB DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;");
