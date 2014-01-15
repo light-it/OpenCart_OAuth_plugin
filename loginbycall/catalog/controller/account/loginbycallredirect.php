@@ -9,13 +9,15 @@ class ControllerAccountLoginbycallredirect extends Controller {
 		$this->load->model('tool/loginbycallfunction');
 		$this->load->model('account/customer');
 		$setting_loginbycall = $this->model_setting_setting->getSetting('loginbycall', 0);
+		$obj = $this->model_tool_loginbycallfunction->loginbycall_oauth_render($setting_loginbycall['adress_callback'], $setting_loginbycall['id_application'], $setting_loginbycall['secret_key'], $setting_loginbycall['authorization_code'], null);
 		if (isset($this->customer->session->data['customer_id'])) {
 			if (strpos($_SERVER['REQUEST_URI'], 'code=')) {
 				$code = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], 'code=') + 5);
+				$customer_info = $this->model_account_customer->getCustomer($this->customer->session->data['customer_id']);
 				$obj = $this->model_tool_loginbycallfunction->loginbycall_oauth_render($setting_loginbycall['adress_callback'], $setting_loginbycall['id_application'], $setting_loginbycall['secret_key'], $setting_loginbycall['authorization_code'], $code);
 				$query = $this->db->query("SELECT uid FROM " . DB_PREFIX . "loginbycall_user lu WHERE lu.target_token = '" . $obj->target_token . "'");
 				if (!$query->num_rows) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $this->customer->getFirstName() . "' , mail ='" . $obj->email . "', target_token='" . $obj->target_token . "',status=1");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->customer->session->data['customer_id'] . ", login = '" . $this->customer->getFirstName() . "' , mail ='" . $customer_info['email'] . "', target_token='" . $obj->target_token . "',status=1");
 				}
 				$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 			} else {
