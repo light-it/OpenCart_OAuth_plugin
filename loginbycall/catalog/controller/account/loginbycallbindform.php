@@ -15,7 +15,7 @@ class ControllerAccountLoginbycallbindform extends Controller {
 		if (!isset($obj)) {
 			$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
 		}
-		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+		if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->session->data['existing_account'])) {
 			if ($this->request->post['create'] == '1') {
 				if ($this->validate_bind_account()) {
 					$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
@@ -106,6 +106,24 @@ class ControllerAccountLoginbycallbindform extends Controller {
 		} else {
 			$this->template = 'default/template/module/loginbycallbindform.tpl';
 		}
+		$existing_account = false;
+//		echo '<pre>';
+//		print_r($this->session->data['existing_account']);
+//		echo '</pre>';
+		if ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->session->data['existing_account'])) {
+			$this->request->post['email'] = $this->session->data['existing_account']['email'];
+		}
+		if ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->session->data['existing_account']) && $this->validate_bind_account()) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $this->session->data['existing_account']['customer_id'] . ", login = '" . $this->session->data['existing_account']['first_name'] . "' , mail ='" . $this->session->data['existing_account']['email'] . "', target_token='" . $this->session->data['existing_account']['target_token'] . "',status=1");
+			$this->customer->login($this->session->data['existing_account']['email'], '', true);
+			unset($this->session->data['existing_account']);
+			$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
+		}
+		if (isset($this->session->data['existing_account'])) {
+			$existing_account = true;
+			$this->data['enter_email_value'] = $this->session->data['existing_account']['email'];
+		}
+		$this->data['existing_account'] = $existing_account;
 		$this->data['create_new_account_mail'] = $obj->email;
 		$this->data['build_account'] = $this->language->get('build_account');
 		$this->data['create_new_account'] = $this->language->get('create_new_account');

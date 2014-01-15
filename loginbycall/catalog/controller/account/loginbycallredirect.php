@@ -39,9 +39,13 @@ class ControllerAccountLoginbycallredirect extends Controller {
 					$query = $this->db->query("SELECT customer_id,email FROM " . DB_PREFIX . "customer cu WHERE cu.email = '" . $this->session->data['request_obj']->email . "'");
 					if ($query->num_rows) {
 						$customer_info = $this->model_account_customer->getCustomer($query->rows[0]['customer_id']);
-						$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $query->rows[0]['customer_id'] . ", login = '" . $customer_info['first_name'] . "' , mail ='" . $customer_info['email'] . "', target_token='" . $this->session->data['request_obj']->target_token . "',status=1");
-						$this->customer->login($customer_info['email'], '', true);
-						$this->redirect($this->url->link('account/loginbycallsettings', '', 'SSL'));
+						//$this->db->query("INSERT INTO " . DB_PREFIX . "loginbycall_user SET uid = " . $query->rows[0]['customer_id'] . ", login = '" . $customer_info['first_name'] . "' , mail ='" . $customer_info['email'] . "', target_token='" . $this->session->data['request_obj']->target_token . "',status=1");
+						//$this->customer->login($customer_info['email'], '', true);
+						$this->session->data['existing_account']['customer_id'] = $query->rows[0]['customer_id'];
+						$this->session->data['existing_account']['first_name'] = $customer_info['first_name'];
+						$this->session->data['existing_account']['email'] = $customer_info['email'];
+						$this->session->data['existing_account']['target_token'] = $this->session->data['request_obj']->target_token;
+						$this->redirect($this->url->link('account/loginbycallbindform', '', 'SSL'));
 					}
 					$this->redirect($this->url->link('account/loginbycallbindform', '', 'SSL'));
 				}

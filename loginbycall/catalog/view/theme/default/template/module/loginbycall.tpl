@@ -25,6 +25,7 @@
 	
 </script>
 <div class="box">
+	<?php if (!$logged) { ?>
 	<div class="box-heading"><?php echo $fast_authorization; ?></div>
 	<div id="loginbycall_fast" class="box-content">
 		<a href="<? echo $action_loginbycall; ?>" style="display: block; width: 200px;text-decoration: none; color: black;" class="loginbycall">
@@ -37,6 +38,7 @@
 		</a>
 	</div>
 	<br/>
+	<?php }?>
 	<div class="box-heading"><?php echo $heading_title; ?></div>
 	<div id="loginbycall" class="box-content">
 		<?php if (!$logged) { ?>

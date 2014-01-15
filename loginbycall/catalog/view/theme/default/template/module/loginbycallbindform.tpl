@@ -132,6 +132,7 @@
 <?php } ?>
 <form action="/index.php?route=account/loginbycallbindform" method="post" id="loginbycall-user-form" accept-charset="UTF-8">
 	<div>
+		<?php if (!$existing_account) { ?>
 		<div class="form-item form-type-radios form-item-create">
 			<label for="edit-create"><?php echo $build_account; ?></label>
 			<div id="edit-create" class="form-radios">
@@ -144,6 +145,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="form-item form-type-textfield form-item-create-login" style="display: block;">
 			<label for="edit-create-login"><?php echo $enter_new_first_name; ?></label>
 			<input type="text" id="edit-create-login" name="create_login" value="" size="60" maxlength="128" class="form-text">
@@ -164,6 +166,19 @@
 			<input type = "password" id = "edit-pass" name = "password" size = "60" maxlength = "128" class = "form-text">
 			<div class = "description"><?php echo $password_description; ?></div>
 		</div>
+		<?php } ?>
+		<?php if ($existing_account) { ?>
+		<div class = "form-item form-type-textfield form-item-login" style = "display: block;">
+			<label for = "edit-login"><?php echo $enter_email; ?></label>
+			<input type = "text" id = "edit-login" name="email" disabled="disabled" value = "<?php  echo $enter_email_value; ?>" size = "60" maxlength = "128" class = "form-text">
+			<div class = "description"><?php echo $enter_email_description; ?></div>
+		</div>
+		<div class = "form-item form-type-password form-item-pass" style = "display: block;">
+			<label for = "edit-pass"><?php echo $password; ?></label>
+			<input type = "password" id = "edit-pass" name = "password" size = "60" maxlength = "128" class = "form-text">
+			<div class = "description"><?php echo $password_description; ?></div>
+		</div>
+		<?php }?>
 		<input type = "submit" id = "loginbycall-edit-submit" name = "op" value = "Submit" class = "form-submit"><input type = "hidden" name = "form_build_id" value = "form_oauth_user">
 		<input type = "hidden" name = "form_id" value = "loginbycall_user_form">
 	</div>
